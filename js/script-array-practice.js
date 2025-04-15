@@ -229,14 +229,14 @@
 
 //STEP 17
 
-function maxValue(array) {
-    let max = -Infinity
-    for (value of array) {
-        if (value > max) {
-            max = value
-        }
-    }
-    return max
-}
-let sampleArray = [45, 87, 22, 69, 999, 999911, Infinity, 78, 5, 40, 99]
-console.log(maxValue(sampleArray))
+// function maxValue(array) {
+//     let max = -Infinity
+//     for (value of array) {
+//         if (value > max) {
+//             max = value
+//         }
+//     }
+//     return max
+// }
+// let sampleArray = [45, 87, 22, 69, 999, 999911, Infinity, 78, 5, 40, 99]
+// console.log(maxValue(sampleArray))

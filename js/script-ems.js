@@ -1,20 +1,43 @@
 // CREATE AN ARRAY OF EMPLOYEES
-
+let employees = [
+    // ID#, name str, 4 digit#, email str, department str
+    [21324114, "Mary Jane", 3773, "maryja@bebcorp.com", "Administrative"],
+    [32489432, "Dan Daniels", 3642, "danda@bebcorp.com", "Engineering"],
+    [34905853, "Frank Jackson", 3532, "frankja@bebcorp.com", "Marketing"],
+    [43898932, "Karen Adams", 8263, "karenad@bebcorp.com", "Quality Assurance"],
+    [90389093, "John Doe", 9274, "johndo@bebcorp.com", "Executive"]
+]
 
 // CHECK TO SEE IF STORAGE OBJECT EXISTS WHEN THE PAGE LOADS
 // IF DOES, RETURN STORAGE OBJECT INTO ARRAY INSTEAD OF POPULATED ARRAY
-
+let storage = localStorage.getItem('employees') || ''
+if (storage.length > 0) {
+    employees = JSON.parse(localStorage.getItem('employees')) 
+}
 
 // GET DOM ELEMENTS
-
-
+const $ = id => document.getElementById(id)
+empTable = $("empTable")
 // BUILD THE EMPLOYEES TABLE WHEN THE PAGE LOADS
+let tableContents = ""
+for (let item of employees) {
+    console.log(item)
+    let id = 0
+    let name = 1
+    let ext = 2
+    let email = 3
+    let dept = 4
+    let rowString = `<tr><td>${item[id]}</td><td>${item[name]}</td><td>${item[ext]}</td><td>${item[email]}</td><td>${item[dept]}</td></tr>`
+    tableContents = String.prototype.concat(tableContents, rowString)
+    console.log(rowString)
+}
+empTable.innerHTML = String.prototype.concat(empTable.innerHTML,tableContents)
 
 
 // ADD EMPLOYEE
 form.addEventListener('submit', (e) => {
     // PREVENT FORM SUBMISSION
-
+    e.preventDefault()
     // GET THE VALUES FROM THE TEXT BOXES
 
     // ADD THE NEW EMPLOYEE TO A NEW ARRAY OBJECT
@@ -43,8 +66,9 @@ empTable.addEventListener('click', (e) => {
 
 // BUILD THE EMPLOYEES GRID
 function buildGrid() {
+    empTable = $("empTable")
     // REMOVE THE EXISTING SET OF ROWS BY REMOVING THE ENTIRE TBODY SECTION
-
+    empTable.tBodies[0].remove()
     // REBUILD THE TBODY FROM SCRATCH
 
     // LOOP THROUGH THE ARRAY OF EMPLOYEES

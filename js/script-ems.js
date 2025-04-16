@@ -1,5 +1,5 @@
 // CREATE AN ARRAY OF EMPLOYEES
-let employees = [
+employees = [
     // ID#, name str, 4 digit#, email str, department str
     [21324114, "Mary Jane", 3773, "maryja@bebcorp.com", "Administrative"],
     [32489432, "Dan Daniels", 3642, "danda@bebcorp.com", "Engineering"],
@@ -19,22 +19,10 @@ if (storage.length > 0) {
 const $ = id => document.getElementById(id)
 empTable = $("empTable")
 // BUILD THE EMPLOYEES TABLE WHEN THE PAGE LOADS
-let tableContents = ""
-for (let item of employees) {
-    console.log(item)
-    let id = 0
-    let name = 1
-    let ext = 2
-    let email = 3
-    let dept = 4
-    let rowString = `<tr><td>${item[id]}</td><td>${item[name]}</td><td>${item[ext]}</td><td>${item[email]}</td><td>${item[dept]}</td></tr>`
-    tableContents = String.prototype.concat(tableContents, rowString)
-    console.log(rowString)
-}
-empTable.innerHTML = String.prototype.concat(empTable.innerHTML,tableContents)
-
+buildGrid()
 
 // ADD EMPLOYEE
+let form = $(addForm) 
 form.addEventListener('submit', (e) => {
     // PREVENT FORM SUBMISSION
     e.preventDefault()
@@ -70,14 +58,33 @@ function buildGrid() {
     // REMOVE THE EXISTING SET OF ROWS BY REMOVING THE ENTIRE TBODY SECTION
     empTable.tBodies[0].remove()
     // REBUILD THE TBODY FROM SCRATCH
-
+    newTbody = document.createElement('tbody')
+    
     // LOOP THROUGH THE ARRAY OF EMPLOYEES
     // REBUILDING THE ROW STRUCTURE
+    employeeCount = 0
+    let tableContents = ""
+    for (let item of employees) {
+        let tr = document.createElement('tr')
+        // Indices of values
+        let id = 0
+        let name = 1
+        let ext = 2
+        let email = 3
+        let dept = 4
+        // Create delete buttons
+        let buttonString = "<button type='button' class='btn btn-danger' style='color:black;'>X</button>"
+        let rowString = `<td>${item[id]}</td><td>${item[name]}</td><td>${item[ext]}</td><td>${item[email]}</td><td>${item[dept]}</td>${buttonString}`
+        
 
+        tr.innerHTML = rowString
+        newTbody.appendChild(tr)
+        employeeCount += 1
+    }
     // BIND THE TBODY TO THE EMPLOYEE TABLE
-
+    empTable.appendChild(newTbody)
     // UPDATE EMPLOYEE COUNT
-
+    $("empCount").innerText = employeeCount
     // STORE THE ARRAY IN STORAGE
-
+    localStorage.setItem('employees', JSON.stringify(employees))
 };

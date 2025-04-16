@@ -79,7 +79,7 @@ function buildGrid() {
     
     // LOOP THROUGH THE ARRAY OF EMPLOYEES
     // REBUILDING THE ROW STRUCTURE
-    employeeCount = 0
+    employeeCount = employees.length
     let tableContents = ""
     for (let item of employees) {
         let tr = document.createElement('tr')
@@ -98,7 +98,6 @@ function buildGrid() {
         tr.innerHTML = rowString
         // Add row to table
         newTbody.appendChild(tr)
-        employeeCount += 1
     }
     // BIND THE TBODY TO THE EMPLOYEE TABLE
     empTable.appendChild(newTbody)

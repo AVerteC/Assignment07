@@ -22,34 +22,45 @@ empTable = $("empTable")
 buildGrid()
 
 // ADD EMPLOYEE
-let form = $(addForm) 
+let form = $("addForm") 
 form.addEventListener('submit', (e) => {
     // PREVENT FORM SUBMISSION
     e.preventDefault()
     // GET THE VALUES FROM THE TEXT BOXES
-
+    let id = $('id').value;
+    let name = $('name').value;
+    let extension = $('extension').value;
+    let department = $('department').value;
+    let email = $('email').value;
     // ADD THE NEW EMPLOYEE TO A NEW ARRAY OBJECT
-
+    let newEmployee = [id, name, extension, email, department]
     // PUSH THE NEW ARRAY TO THE *EXISTING* EMPLOYEES ARRAY
-
+    employees.push(newEmployee)
     // BUILD THE GRID
-
+    buildGrid()
     // RESET THE FORM
-
+    form.reset()
     // SET FOCUS BACK TO THE ID TEXT BOX
-
+    $('id').focus()
 });
 
 // DELETE EMPLOYEE
 empTable.addEventListener('click', (e) => {
-    // CONFIRM THE DELETE
-
-        // GET THE SELECTED ROWINDEX FOR THE TR (PARENTNODE.PARENTNODE)
-
-        // REMOVE EMPLOYEE FROM ARRAY
-
-        // BUILD THE GRID
-
+    if (e.target.tagName === "BUTTON") {
+        // CONFIRM THE DELETE
+        if (confirm("Are you sure you want to delete this employee?")) {
+            // GET THE SELECTED ROWINDEX FOR THE TR (PARENTNODE)
+            let row = e.target.parentNode
+            // console.log(row)  // Current row of click event
+            // console.log(row.parentNode) // The entire table
+            
+            // Row index starts at 1 in HTML
+            let index = row.rowIndex - 1        
+            employees.splice(index, 1)
+            // BUILD THE GRID 
+            buildGrid()
+        }
+    }
 });
 
 // BUILD THE EMPLOYEES GRID
@@ -67,17 +78,19 @@ function buildGrid() {
     for (let item of employees) {
         let tr = document.createElement('tr')
         // Indices of values
-        let id = 0
-        let name = 1
-        let ext = 2
-        let email = 3
-        let dept = 4
-        // Create delete buttons
-        let buttonString = "<button type='button' class='btn btn-danger' style='color:black;'>X</button>"
-        let rowString = `<td>${item[id]}</td><td>${item[name]}</td><td>${item[ext]}</td><td>${item[email]}</td><td>${item[dept]}</td>${buttonString}`
+        let id = item[0]
+        let name = item[1]
+        let ext = item[2]
+        let email = item[3]
+        let dept = item[4]
+        // Create delete button HTML
+        let button = "<button type='button' class='btn btn-danger' style='color:black;'>X</button>"
+        // Create row HTML
+        let rowString = `<td>${id}</td><td>${name}</td><td>${ext}</td><td>${email}</td><td>${dept}</td>${button}`
         
-
+        // Set HTML of table row
         tr.innerHTML = rowString
+        // Add row to table
         newTbody.appendChild(tr)
         employeeCount += 1
     }
